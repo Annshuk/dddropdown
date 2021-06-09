@@ -1,7 +1,10 @@
 import React from 'react'
-import glamorous from 'glamorous'
+import {css as emoCSS} from 'emotion'
+import styled from 'react-emotion'
 
-const Item = glamorous.div(
+const css = (...args) => ({className: emoCSS(...args)})
+
+const Item = styled('div')(
   {
     position: 'relative',
     cursor: 'pointer',
@@ -38,9 +41,9 @@ const Item = glamorous.div(
   },
 )
 const onAttention = '&:hover, &:focus'
-const Input = glamorous.input(
+const Input = styled('input')(
   {
-    width: 'calc(100% - 16px)', // full width - icon width/2 - border
+    width: '100%', // full width - icon width/2 - border
     fontSize: 14,
     wordWrap: 'break-word',
     lineHeight: '1em',
@@ -49,16 +52,12 @@ const Input = glamorous.input(
     minHeight: '2em',
     background: '#fff',
     display: 'inline-block',
-    padding: '.5em 2em .5em 1em',
+    padding: '1em 2em 1em 1em',
     color: 'rgba(0,0,0,.87)',
     boxShadow: 'none',
     border: '1px solid rgba(34,36,38,.15)',
     borderRadius: '.30rem',
     transition: 'box-shadow .1s ease,width .1s ease',
-    ':hover': {
-      borderColor: 'rgba(34,36,38,.35)',
-      boxShadow: 'none',
-    },
     [onAttention]: {
       borderColor: '#96c8da',
       boxShadow: '0 2px 3px 0 rgba(34,36,38,.15)',
@@ -69,11 +68,23 @@ const Input = glamorous.input(
       ? {
           borderBottomLeftRadius: '0',
           borderBottomRightRadius: '0',
+          [onAttention]: {
+            boxShadow: 'none',
+          },
         }
       : null,
 )
 
-const Menu = glamorous.div({
+const Label = styled('label')({
+  fontWeight: 'bold',
+  display: 'block',
+  marginBottom: 10,
+})
+
+const Menu = styled('div')({
+  position: 'absolute',
+  backgroundColor: 'white',
+  width: '100%',
   maxHeight: '20rem',
   overflowY: 'auto',
   overflowX: 'hidden',
@@ -89,13 +100,19 @@ const Menu = glamorous.div({
   borderStyle: 'solid',
 })
 
-const ControllerButton = glamorous.button({
+const ControllerButton = styled('button')({
   backgroundColor: 'transparent',
   border: 'none',
   position: 'absolute',
-  right: 8,
-  top: 12,
+  right: 0,
+  top: 0,
   cursor: 'pointer',
+  width: 47,
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+  justifyContent: 'center',
+  alignItems: 'center',
 })
 
 function ArrowIcon({isOpen}) {
@@ -130,4 +147,4 @@ function XIcon() {
   )
 }
 
-export {Menu, ControllerButton, Input, Item, ArrowIcon, XIcon}
+export {Menu, ControllerButton, Input, Item, ArrowIcon, XIcon, Label, css}
